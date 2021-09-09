@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Amazon Bills Collector</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="icon" href="https://m.media-amazon.com/images/G/01/sell/images/favicon.ico"
+        type = "image/x-icon">
+</head>
+<body  style="
+/*background-color: red;*/
+            /*background-image: url('img.jpg');*/
+            /*background-position: top;*/
+            /*filter: blur(8px);*/
+            /*background-repeat: no-repeat;*/
+            /*width: 100%;*/
+            background-color: black;
+            height: 100%;">
+<script src="eel.js" ></script>
+<div class="container" style="display: flex;height: 100vh;align-items: center;justify-content: center;flex-direction: column;">
+
+<img src="amazon-dark-logo-black-and-white.png" alt="" style="
+
+width: 500px;
+height: 200px;
+/*filter: blur(3px);*/
+">
+    <h1 style="text-align: center; color: cornsilk"  >
+    اختر ملف البوليصة المجمعة
+    </h1>
+
+    <div style="text-align: center ; margin: 20px" >
+
+        <input type="text"  id="files" class="form-control" style="display: inline ;  width: auto" />
+        <button onclick=get_file() class="btn btn-success" style="display: inline" >
+            اختر الملف
+        </button>
+    </div>
+
+<!--    <div style="text-align: center;" >-->
+<!--    </div>-->
+    <div style="text-align: center;"  >
+        <button onclick=collect() class="btn btn-primary" style="width: 300px;margin-top: 10px" >
+            ابدا التجميع
+        </button>
+    </div>
+
+    <div id="done" style="display: none;margin: 10px" class="alert alert-success text-center" onclick=collect()>
+       √ اكتمل التحويل بنجاح
+    </div>
+</div>
+<script>
+    var res =[]
+    async  function get_file(){
+        var folder_path=eel.get_path()
+        res=await folder_path()
+        console.log(res)
+        document.getElementById("files").value=res
+        eel.test(res)
+    }
+
+    function collect(){
+        eel.start(res)
+    }
+
+    eel.expose(say_hello_js);
+    function say_hello_js(x) {
+    console.log("Hello from " + x);
+    document.getElementById("done").style.display="block"
+    setTimeout(
+        function () {
+        document.getElementById("done").style.display="none"
+    },2000
+    )
+  }
+
+</script>
+</body>
+</html>
